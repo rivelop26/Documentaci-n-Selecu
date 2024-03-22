@@ -27,9 +27,9 @@ Estas dos secciones cuentan con información detalla de un grupo por default asi
 
 Ubicación: `src/views/xuaii/Componets/NomandXuaii.tsx`
 
-En este componente se basa toda la logica de datos De los estudiantes idividuales 
+En este componente se basa toda la logica de datos De los estudiantes idividuales
 
-En este componente hay un useEffect que Obedece a cambios de estados `[year, value, buttonBool1]` 
+En este componente hay un useEffect que Obedece a cambios de estados `[year, value, buttonBool1]`
 
 <code-block lang="plain text">
 useEffect(() => {
@@ -82,9 +82,9 @@ Las respuestas son Dinamicas y se basan en Los parametros ya establecidos `El a�
 
 `For :`
 Se ordena los datos y las categorias dentro del arreglo `Data``categorie`
-para porder insertarlo en la estructura `ApexAxisChartSeries` y actualizar el estado `setSeries` 
+para porder insertarlo en la estructura `ApexAxisChartSeries` y actualizar el estado `setSeries`
 
-`setArea : ` 
+`setArea : `
 Estado de Las categorias (Matemáticas, Español, etc)
 
 ##### Script {collapsible="true"}
@@ -128,7 +128,7 @@ Estado de Las categorias (Matemáticas, Español, etc)
 
 #### Response tabla : {collapsible="true"}
 Esta es la estructura del JSON que tiene como respuesta, Es simplemente una estructura por lo cual pueden haber dentro del `JSON` muchos objetos
-    
+
     [
         {
             "ID_Usuario": "78",
@@ -140,7 +140,7 @@ Esta es la estructura del JSON que tiene como respuesta, Es simplemente una estr
         }
     ]
 
-#### Proceso tablas competencias 
+#### Proceso tablas competencias
 `agrupadoPorArea :` Separación de los datos del `array` ordenandolos por area y actualizando el `setQuestionsSplit`
 
 ##### ScriptTabla {collapsible="true"}
@@ -193,7 +193,7 @@ Esta es la estructura del JSON que tiene como respuesta, Es simplemente una estr
     }
     ]
 
-#### Proceso 
+#### Proceso
 `For:` Se separan las competencias por `areas` para insertalos en la estructura `ApexAxisChartSeries` y actualización del estado
 
 #### Fragmento {collapsible="true"}
@@ -234,8 +234,8 @@ Esta es la estructura del JSON que tiene como respuesta, Es simplemente una estr
 
 #### Response Worldview {collapsible="true"}
 
-Este es el resultado unico que tiene este endPoint ya que trae el desempeño exacto del estudiante actual 
-    
+Este es el resultado unico que tiene este endPoint ya que trae el desempeño exacto del estudiante actual
+
     {
         "Listening_and_Vocabulary": "A2",
         "reading": "A2",
@@ -245,26 +245,41 @@ Este es el resultado unico que tiene este endPoint ya que trae el desempeño exa
 
 #### Proceso Wordlview
 
-Graficación de `datos` en tablas sencillas 
+Graficación de `datos` en tablas sencillas
 
       <EnglishTable
          englishDate={english}
       />
 
-## Grupal   
+## Grupal
 
 
 #### Area grupal
-<procedure title="" id="area2">
 
-Endpoint area 
-    
+
+useEffect inicial
+
+    useEffect(() => {
+
+        const user: UserInterface = getUser();
+        if (user.roles !== 'Coordinador') setUser(user);
+    }, []);
+
+Como ya sabemos este componente `TribeXuaii.tsx` es uno de los componentes usados en todos los los roles para la presentación de datos a los usuarios, todo esto con la inteción de reducir la cantidad de codigo duplicado y reutilizar lo que ya esta construido, pero con unas ligeras variaciones dependiendo del rol 
+
+`useEffect:` Este componente tiene este efecto inicial con la inteción de verificar si estamos en un mentor o coordinador , solo me permitira actualizar el usuario si es `mentor`
+
+ya que cuando somos coodinadores o Directivos usamos otro metodo para obtener el usuario y los datos pertinentes dependiendo de los valores del los filtro, como `grupo` etc
+<procedure title="" id="area">
+
+Endpoint area
+
     .patch<[AreaDataXuaiiGrupal]>('responses-xuaii/mentor/topic/performance/',params)
     .then((response)=>{
          const data = response.data
          setData(data);
 
-    
+
 <procedure title="Response" id="area-">
 
     [
@@ -306,7 +321,7 @@ Type
 
 `for:` Al igual que en la sección de mentores individual, se separa los valores de los datos en el arreglo `Data` para forma la estructura de números del `ApexAxisChartSeries`
 
-`categorie:` Del mismo modo separamos las area en categorías en el orden correcto para que coincidan con sus valores 
+`categorie:` Del mismo modo separamos las area en categorías en el orden correcto para que coincidan con sus valores
 
 Estrutura dela libreria ApexAxisChartSeries
 
@@ -314,7 +329,7 @@ Estrutura dela libreria ApexAxisChartSeries
             {name:"%",data: Data}
         ]
 
-Estado de las categorias 
+Estado de las categorias
 
         setArea(()=>({
             options: {
@@ -408,11 +423,11 @@ Type
             
             const series = [{ name: area, data: values }];
 
-`series:` estructura del ApexAxisChartSeries 
+`series:` estructura del ApexAxisChartSeries
 
             setState(series);
 
-`setState:` estado que le pasamos 
+`setState:` estado que le pasamos
 
             optionsState({
                 options: {
@@ -431,7 +446,7 @@ Type
             });
         };
 
-`optionsState:` optionsState estado de las categorias 
+`optionsState:` optionsState estado de las categorias
 
 
 `areas:` areas
@@ -507,7 +522,59 @@ Type
 
 </procedure>
 
+En general en todos los procesos que se hacen con los datos para la graficación de las charts , se enfoca hacia la misma guia o estructura, todos los datos se procesan u ordenan separandolos de modo que los `values` queden en un arreglo en orden deacuerdo a las categorias o nombres
+
+    useEffect(()=>{
+`stateVariables:` el listado de los estados y variables por nombre del item a calificar `reading etc`
+
+        const stateVariables = {
+           "listening_and_Vocabulary": setListening,
+            "general":setGeneral,   
+            "reading":setReading,
+        };
+
+`for:` se ordena los values en el arreglo series para insertarlos en los estados correspodiente de `stateVariables`, se repite los procesos anteriores
+
+       for (const key in worldview) {
+           let value = worldview[key]
+           let series = [];
+           let state = stateVariables[key as keyof typeof stateVariables];
+
+           for (const valueKey   in value) {
+               series.push(value[valueKey])
+           }
+           state([{name:key,data:series}])
+       }
+
+    },[worldview])
+
 
 </procedure>
 
+#### filtros
+
+para el filtrado de datos se usa estos 2 filtros, `FilterProgress` esta primera sección es para filtrar datos que normalmente se usa en todos los lugares en los cuales se rederizan datos 
+
+`OptionsFilter:` Es una sección sencilla que se usda para cambiar entres las diferentes tablas , pero como se ve se le pasan unos valores como `year` y `value` que son dinamicas para descargar un reporte en excel
+   
+     return (
+        <>
+             <FilterProgress
+                setYear={setYear}
+                setValue={setValue}
+                groupSede={groupSede}
+                setUpdateGroup={setUpdateGroup}
+                institutions={institutions}
+                setCampus={setCampus}
+            />
+
+            <div className="BodyXuaiiTribe" id="">
+            <OptionsFilter
+                style="Left-Nav"
+                setButtonBool1={setButtonBool1}
+                english={true}
+                year ={year}
+                value ={value}
+            />
+        />
 
