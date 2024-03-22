@@ -17,7 +17,7 @@ Componente NavGroup
 
 
 ### Funcionalidad
-Este componente es el encargado de extraer y ordenar los productos del usuario despues de loguear
+Este componente es el encargado de extraer y ordenar los productos del usuario después de registrar
 
 
 #### End point
@@ -50,9 +50,9 @@ Esta es la estructura de los productos y puede cambiar dependiente del `rol` o `
 
 #### Proceso {collapsible="true"}
  
-`finalArray :` arreglo que simplifica el producto a xuaii, con la inteción de tener xuaii como el producto principal en todos los roles
+`finalArray:` arreglo que simplifica el producto a xuaii, con la inteción de tener xuaii como el producto principal en todos los roles
 
-`if :` inicialización del producto , el cual se guarda en las cookie de la web para hacer uso de el.
+`if:` inicialización del producto, el cual se guarda en las cookies de la web para hacer uso de él.
 
 `useEffect` efecto que reacciona al cambio del estado de los productos con respecto al usuario
 
@@ -89,13 +89,13 @@ Esta es la estructura de los productos y puede cambiar dependiente del `rol` o `
                 }
         </code-block>
 
-`const cookies:` Quitamos todos lo espacios del producto que tenemos en las cookies
+`const cookies:` Quitamos todos los espacios del producto que tenemos en las cookies
 
 `if:` Verificamos si la cookie inicia con `t` ya que con esto identificamos si es o no un producto,
 
-`return:` regresamos el valor sin el `t=` para tener el producto tal como es : `T2,T3,Xuaii`etc.
+`return:` regresamos el valor sin el `t=` para tener el producto tal como es: `T2,T3,Xuaii`etc.
 
-existe una función llamada `cookies` que hace esto por ti sin tener que duplicar el codigo
+Existe una función llamada `cookies` que hace esto por ti sin tener que duplicar el codigo
 `ubicación:` src/views/Pihe/cookies.ts
 
 </procedure>
@@ -121,9 +121,9 @@ existe una función llamada `cookies` que hace esto por ti sin tener que duplica
 
 En esta sección todo va enfocado en ordenar las sseciones del menu lateral dependiendo de la estructura anteriormente definida
 
-`if:` Si el producto que se seleciona es EExperiencias Comfama no se continua definiendo la estructura
+`if:` Si el producto que se seleciona es EExperiencias Comfama no se continúa definiendo la estructura
 
-`else:` dependiendo el caso de la estructura definimos si es un `collapse (se que puede esplegar y tiene dentro item del menu)` ,o `item (es un objeto con un link para redireccionar)` 
+`else:` dependiendo el caso de la estructura definimos si es un `collapse (se puede esplegar y tiene dentro item del menu)`, o `item (es un objeto con un link para redireccionar)` 
 
 
 Ubicación estructura: ` src/menu-items.ts`
@@ -143,7 +143,7 @@ SELECT product
 
 </procedure>
 `products:` Arreglo de productos mapeado en opciones de un select de productos
-`res:` item del arreglo el cual se compara con el de las coolies para saber si está o no selecionado
+`res:` item del arreglo el cual se compara con el de las cookies para saber si está o no selecionado
 
 <procedure title="" id="Select">
 
@@ -153,6 +153,6 @@ SELECT product
     "Temporada " + rs.name.substring(1)
 
 
-Se usa para identificar si es una temporada de seluverso o un prodcuto diferente para agregar el inicio `TEMPORADA + T2` mas la temporada
+Se usa para identificar si es una temporada de seluverso o un prodcuto diferente para agregar el inicio `TEMPORADA + T2` más la temporada
 </procedure>
 </procedure>
