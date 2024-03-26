@@ -125,3 +125,42 @@ Actions
 
 </procedure>
 
+<procedure title="" id="use">
+
+Ubicación: `src/store/reducer.ts`
+
+todos los Reducers los asociamos al hook selector , teniendo en cuenta su action y su estado inicial
+
+    
+    const reducer = combineReducers({
+        able: ableReducer,
+        demo: demoReducer,
+        studentXuaiiR:studentXuaiiReducer,
+        GroupXuaiiReducer:GroupXuaiiReducer,
+        XuaiiCoordiReducer:XuaiiCoordiReducer,
+        DataRoles:DataRoles
+    });
+    
+    export const useSelector = createSelectorHook<{
+        able: typeof AbleState;
+        demo: typeof DemoState;
+        studentXuaiiR: typeof studentXuaiiRInitial;
+        GroupXuaiiReducer: typeof GroupXuaiiRInitial;
+        XuaiiCoordiReducer: typeof XuaiiCoordiInitial;
+        DataRoles: typeof DataRolesInitial;
+    }>();
+
+Ejemplo: 
+El ejemplo de use de estos es de la siguiente manera, se hara basado en la información anteriormente recopilada 
+
+    const date = useSelector((state) => state.studentXuaiiR)
+    const dispatch = useDispatch();
+
+`data: ` contiene todos los datos del redux que se ha alamacenado por medio del `dispatch` Y la función `setDataStudents`
+
+    dispatch(setDataStudents(data, id, year, value));
+
+`dispatch:` el haces dispatch a los datos para tenerlos y actualizarlos en el estado
+
+</procedure>
+
