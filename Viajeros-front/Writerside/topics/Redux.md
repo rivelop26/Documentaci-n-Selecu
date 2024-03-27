@@ -29,6 +29,36 @@ Estos son los archivos en los cuales se guarda la información dependiendo el `R
 
 Cada uno de ellos lleva la misma estructura.
 
+<procedure title="" id="resultante">
+
+Estructura resultante
+
+    {
+        "areaGroup": {
+            "2063": {
+                "2024": {
+                    "entry": [
+                    {
+                        "topic": "Lenguaje_3",
+                        "correctPerformance": 47.58620689655172,
+                        "incorrectPerformance": 52.41379310344828,
+                        "count": 29
+                    },
+                    {
+                        "topic": "Matematicas_3",
+                        "correctPerformance": 32.758620689655174,
+                        "incorrectPerformance": 67.24137931034483,
+                        "count": 29
+                    }
+                    ]
+                }
+            }
+        },
+        "competencyGroup": {},
+        "englishGroup": {}
+    }
+</procedure>
+
 </procedure>
 
     import {SET_DATA_STUDENT_XUAII} from "../actions/type";
