@@ -7,6 +7,9 @@
                  start-page="Mentores.md">
 
 
+    <toc-element topic="Redux.md"/>
+    <toc-element topic="Pihe.md"/>
+    <toc-element topic="Coordinador.md"/>
     <toc-element topic="Mentores.md"/>
     <toc-element topic="Select-product.md"/>
     <toc-element topic="EnglishTable.md"/>
